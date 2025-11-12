@@ -1,7 +1,20 @@
 Database = {}
 
+def add_new_device():
+    global Database
+    print ("\n--- Adding New Device ---")
+    device_id = input("Please enter the ID of the device (e.g. defib-001):")
+    device_type = input(f"Please enter what type of device {device_id} is (e.g. Defibrillator):")
+    device_ward = input(f"Please enter the ward of {device_id} (e.g. A&E):")
+    Database[device_id] = {
+    'type': device_type,
+    'ward': device_ward,
+    'maintenance_logs': []
+    }
+    print (f"\nDevice {device_id} ({device_type}) added to the logbook successfully")
+
 def main_menu():
-    print("/n---Welcome to the Medical Devices Logbook---")
+    print("\n---Welcome to the Medical Devices Logbook---")
     print ("1. Add new device")
     print ("2. log maintenance task")
     print ("3. view device history")
@@ -12,7 +25,7 @@ def main_menu():
 while True:
     user_choice = main_menu()
     if user_choice == '1':
-        print ("Add device WIP")
+        add_new_device()
     elif user_choice == '2':
         print ("Log maintenance task WIP")
     elif user_choice == '3':
