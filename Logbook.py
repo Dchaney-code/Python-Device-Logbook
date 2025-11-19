@@ -19,8 +19,26 @@ def maintenance_log_task():
     if device_id in Database:
         print(f"---logging {device_id} ({Database[device_id]['type']}) ---")
         maintenance_description = input("Please enter the description of the maintenance carried out on the device (e.g., calibrated sensor): ")
-        Database[device_id]['maintenance_log'].append(maintenance_description)
+        Database[device_id]['maintenance_logs'].append(maintenance_description)
         print(f"\n{device_id}s Maintenance has been successfully logged.")
+    else:
+        print(f"\nInvalid Device ID detected '{device_id}' is not found in the logbook please check for typo's and try again.")
+        print("Please Make sure the device has been registered to the database using option 1 from the main menu.")
+
+def device_history():
+    print("\n--- Opening device history ---")
+    device_id = input("Please enter the Device ID you wish to view: ")
+    if device_id in Database:
+        device = Database[device_id]
+        print(f"\n--- History of {device_id} ---")
+        print (f"Type of device: {device['type']}")
+        print(f"Ward of device: {device['ward']} ")
+        print("Maintenance Logs:")
+        if len(device['maintenance_logs']) == 0:
+            print("No maintenance performed on device yet.")
+        else:
+            for log_entry in device['maintenance_logs']:
+                print(f" - {log_entry}")
     else:
         print(f"\nInvalid Device ID detected '{device_id}' is not found in the logbook please check for typo's and try again.")
         print("Please Make sure the device has been registered to the database using option 1 from the main menu.")
@@ -41,7 +59,7 @@ while True:
     elif user_choice == '2':
         maintenance_log_task()
     elif user_choice == '3':
-        print ("View device history WIP")
+        device_history()
     elif user_choice == '4':
         print ("Now exiting logbook. Goodbye...")
         break
